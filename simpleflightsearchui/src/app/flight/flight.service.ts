@@ -12,7 +12,7 @@ export class FlightService {
 
     getAllFlights(): Observable<Flight[]>{
 
-        return this._httpService.get("http://localhost:8080/com.simpleflight.search/api/flights") 
+        return this._httpService.get("http://localhost:8080/simpleflightsearch//api/flights") 
              .map((response: Response) => response.json())
              .catch(this.handleError)
     }
@@ -25,11 +25,11 @@ export class FlightService {
     searchFlights(flightNumber: string, departureDate: string, origin: string, destination: string): Observable<Flight[]>{
 
         if(flightNumber!='' && departureDate!='' && origin=='' && destination=='') {
-            return this._httpService.get("http://localhost:8080/com.simpleflight.search/api/flights/"+flightNumber+"/"+departureDate)
+            return this._httpService.get("http://localhost:8080/simpleflightsearch//api/flights/"+flightNumber+"/"+departureDate)
             .map((response: Response) => response.json())
             .catch(this.handleError);
         } else if (flightNumber=='' && departureDate!='' && origin!='' && destination!='') {
-            return this._httpService.get("http://localhost:8080/com.simpleflight.search/api/flights/"+origin+"/"+destination+"/"+departureDate)
+            return this._httpService.get("http://localhost:8080/simpleflightsearch//api/flights/"+origin+"/"+destination+"/"+departureDate)
             .map((response: Response) => response.json())
             .catch(this.handleError);           
         }
