@@ -1,0 +1,4 @@
+com/simpleflight/search/config/SpringMvcDispatcherServletInitializer.class
+com/simpleflight/search/config/AppConfig.class
+com/simpleflight/search/entity/Flight.class
+com/simpleflight/search/rest/FlightRestController.class
