@@ -3,7 +3,7 @@ import {Flight} from './flight';
 import { FlightService } from './flight.service';
 import { error } from 'util';
 import { FormGroup, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {ValidateFlightSearch} from '../validator/validatefields';
+import {ValidateFlightSearch,ValidateFlightNumber} from '../validator/validatefields';
 
 
 @Component({
@@ -23,10 +23,10 @@ export class FlightComponent implements OnInit{
     submitted = false;
     createForm() {
       this.angForm = this.fb.group({
-        flightNumber: ['',ValidateFlightSearch],
+        flightNumber: ['',Validators.required],
         departure:['',Validators.required],
-        origin: ['',ValidateFlightSearch],
-        destination: ['',ValidateFlightSearch]
+        origin: ['',Validators.required],
+        destination: ['',Validators.required]
       });
 
     //   this.angForm.controls.flightNumber.valueChanges
@@ -70,7 +70,6 @@ export class FlightComponent implements OnInit{
 
 
     searchFlights(flightNumber: string, departureDate: string,origin: string, destination: string):void {
-        console.log("flightNumber: "+flightNumber+" departureDate: "+departureDate+" origin: "+origin+" destination: "+destination)
         this._flightService.searchFlights(flightNumber,departureDate,origin,destination)
            .subscribe((flightData) => {this.flights = flightData; this.getFlights(flightNumber,departureDate,origin,destination);},(error) => {
                console.log(error)

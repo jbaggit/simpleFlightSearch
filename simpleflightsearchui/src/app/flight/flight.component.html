@@ -1,32 +1,53 @@
-<h1>Search for Flight(s)</h1>
 
-<div>
+
+<div class="container">
+    <h1>Search for Flight(s)</h1>
    <form [formGroup]="angForm">
-       <h3>Take note that you can only search by (Flight Number and Date) OR (Origin and Destination and Date).</h3><br><br>
        <div class="form-group" [ngClass]="{'has-error' : angForm.get('departure').errors &&
        (angForm.get('departure').touched || angForm.get('departure').dirty)}"> 
          <label for="departureDateInput">Departure Date: </label>
          <input type="date" formControlName="departure"/>
-         <span>
+         <span style="color:#ff0000">
            <span *ngIf="angForm.get('departure').errors?.required"> 
-                   *** Date is required.
+                <br><i>*** Date is required.</i>
            </span>
          </span>
        </div>       
        <div>
-            <div [style.color]="'gray'">
-                <label for="flightNumber">Flight Number: </label>
-                <input type="text" formControlName="flightNumber" />
-            <br>
+            <div  [style.color]="'gray'">
+              <div class="form-group" [ngClass]="{'has-error' : angForm.get('flightNumber').errors 
+                 && (angForm.get('flightNumber').touched || angForm.get('flightNumber').dirty)}">    
+                <label for="flightNumberInput">Flight Number: </label>
+                <input type="text" formControlName="flightNumber"/>
+                <span style="color:#ff0000">
+                    <span *ngIf="angForm.get('flightNumber').errors?.required && !angForm.get('origin').dirty"> 
+                        <br>
+                        <i>*** Flight Number is required if Origin and Destination is not filled out.</i>
+                    </span>
+                </span>                  
+             </div>                 
                 OR
                 <br>
-                <label for="originInput">Origin:  </label>
-                <input type="text" formControlName="origin" /> AND 
-                <label for="destinationInput">Destination: </label>
-                <input type="text" formControlName="destination" />          
+            <div>   
+               <div class="form-group" [style.color]="'gray'" [ngClass]="{'has-error' : angForm.get('origin').errors 
+               && (angForm.get('origin').touched || angForm.get('origin').dirty)}">
+               <span style="color:#ff0000">
+                    <span *ngIf="angForm.get('origin').errors?.required && !angForm.get('flightNumber').dirty && !angForm.get('flightNumber').touched"> 
+                      <br>
+                         <i>*** Origin and Destination are required if Flight Number were not filled out.</i>
+                    </span>
+                 </span> 
+                 <br>  
+                 <span>             
+                    <label for="originInput">Origin:  </label>
+                    <input type="text" formControlName="origin" />  
+                </span> AND    
+                 <label for="destinationInput">Destination: </label>
+                 <input type="text" formControlName="destination" />                                  
+               </div> 
             </div>  
-        </div>        
-        <br>
+           </div> 
+        </div>
       <br>
       <button class="btn btn-primary" (click)="flightsToSearch()"> Search</button>
       <br> <br> <br>
@@ -68,4 +89,15 @@
             </tr>
     </table>
 </div>
+
+<!--
+
+Snippet to disable button
+
+            <td colspan="2" align="right">
+                <button type="submit" ng-disabled="MyForm.$invalid">
+                    Submit</button>
+            </td>
+
+-->
 
